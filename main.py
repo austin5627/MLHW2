@@ -23,13 +23,13 @@ def run_svm_slack(x, y, x_val, y_val, x_test, y_test):
     best = (0, None, None, 0)
     for c in cs:
         w, b = svms.svm_slack(x, y, c)
-        curr_accuracy_train = svms.accuracy_dual(w, b, x, y) / x.shape[0]
-        curr_accuracy = svms.accuracy_dual(w, b, x_val, y_val) / x_val.shape[0]
+        curr_accuracy_train = svms.accuracy_slack(w, b, x, y) / x.shape[0]
+        curr_accuracy = svms.accuracy_slack(w, b, x_val, y_val) / x_val.shape[0]
         print(f'c:{c:<22.0f} Training Acc. {curr_accuracy_train: <4.0%} Validation Acc. {curr_accuracy: <4.0%}')
         if best[0] < curr_accuracy:
                 best = (curr_accuracy, w, b, c)
     print(f'Best c: {best[3]}')
-    best_acc = svms.accuracy_dual(best[1], best[2], x_test, y_test) / x_test.shape[0]
+    best_acc = svms.accuracy_slack(best[1], best[2], x_test, y_test) / x_test.shape[0]
     print(f'Accuracy using test data {best_acc:<4.0%}')
 
 
@@ -45,7 +45,7 @@ def run_svm_dual(x, y, x_val, y_val, x_test, y_test):
             if best[0] < curr_accuracy:
                 best = (curr_accuracy, lambdas, b, s, c)
             print(f'c:{c:<9.0f} sigma:{s:<6.1f} Training Acc. {curr_accuracy_train: <4.0%} Validation Acc. {curr_accuracy: <4.0%}')
-    print(f'Best c: {best[4]}, Best s:{best[3]}')
+    print(f'Best c: {best[4]}, Best sigma:{best[3]}')
     best_acc = svms.accuracy_gauss(best[1], best[2], x, y, x_test, y_test, best[3]) / x_test.shape[0]
     print(f'Accuracy using test data {best_acc:<4.0%}')
 

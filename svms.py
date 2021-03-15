@@ -2,7 +2,7 @@ import numpy as np
 import cvxopt
 
 
-def accuracy_dual(w, b, x_check, y_check):
+def accuracy_slack(w, b, x_check, y_check):
     count = 0
     for xm, ym in zip(x_check, y_check):
         prediction = np.dot(w.reshape([22, ]), xm) + b

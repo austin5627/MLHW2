@@ -11,7 +11,6 @@ class Node:
         self.prediction = self.prediction[0][self.prediction[1].argmax()]
         self.info_gain = 0
 
-
         if depth == max_depth or self.entropy == 0:
             self.children = None
             return
@@ -44,7 +43,7 @@ class Node:
 
     def print(self, attr=0, value=''):
         if not value == '':
-            print(f'{names[attr+1] + "=" + value:19} ', end='')
+            print(f'{names[attr + 1] + "=" + value:19} ', end='')
         else:
             print(' ' * 20, end='')
         print(self)
@@ -54,7 +53,7 @@ class Node:
 
     def __str__(self):
         if self.children is not None:
-            return f'splitting on {names[self.split_attr+1]:<17} depth = {self.depth}, {self.info_gain}'
+            return f'splitting on {names[self.split_attr + 1]:<17} depth = {self.depth}, {self.info_gain}'
         else:
             return f'leaf node - prediction:{self.prediction:<7} depth = {self.depth}'
 
@@ -142,8 +141,6 @@ test_data = pd.read_csv("mush_test.data", names=names)
 x_test = test_data[names[1:]].values
 y_test = test_data[names[0]].values
 
-d_tree = DecisionTree(x_train, y_train, 1)
+d_tree = DecisionTree(x_train, y_train)
 print(accuracy(d_tree, x_test, y_test) / x_test.shape[0])
 d_tree.visualize()
-
-
